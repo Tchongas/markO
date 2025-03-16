@@ -4,18 +4,26 @@
     "description": "Markdown to HTML parser",
     "main": "marko.js",
     "scripts": {
-      "test": "node test.js",
-      "build": "echo \"No build step needed\""
+        "test": "node test.js",
+        "build": "echo \"No build step needed\""
     },
     "repository": {
-      "type": "git",
-      "url": "git+https://github.com/tchongas/marko.git"
+        "type": "git",
+        "url": "git+https://github.com/tchongas/marko.git"
     },
-    "keywords": ["markdown", "parser", "html"],
+    "keywords": [
+        "markdown",
+        "parser",
+        "html"
+    ],
     "author": "Tchongass",
     "license": "MIT",
     "publishConfig": {
-      "registry": "https://npm.pkg.github.com/",
-      "access": "public"
-    }
-  }
+        "registry": "https://npm.pkg.github.com/",
+        "access": "public"
+    },
+    "bugs": {
+        "url": "https://github.com/tchongas/marko/issues"
+    },
+    "homepage": "https://github.com/tchongas/marko#readme"
+}
