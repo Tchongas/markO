@@ -15,6 +15,7 @@
     "author": "Tchongass",
     "license": "MIT",
     "publishConfig": {
-      "registry": "https://npm.pkg.github.com/"
+      "registry": "https://npm.pkg.github.com/",
+      "access": "public"
     }
   }
