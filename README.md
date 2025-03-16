@@ -40,6 +40,7 @@ const html = marko.parse(markdown, config);
 - `#` creates an H1 title with a unique section
 - `##` creates an H2 subtitle within a section
 - `//end` closes the current section
+- A new `#` will stop the current section and start a new one, if you haven't closed the previous one
 - Single line breaks create new paragraphs
 - Double line breaks create empty paragraphs
 
