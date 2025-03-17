@@ -92,6 +92,25 @@
           
           continue;
         }
+
+        //I hate regex wtf
+        const linkMatch = line.match(/^\[(.+)\]\((.+)\)$/);
+        if (linkMatch) {
+          const linkText = linkMatch[1];
+          const linkUrl = linkMatch[2];
+
+          const titleMatch = linkUrl.match(/(.+?)\s*"(.+?)"/);
+          let linkHtml;
+
+          if (titleMatch) {
+            linkHtml = `<a href="${titleMatch[1]}" title="${titleMatch[2]}">${linkText}</a>`;
+          } else {
+            linkHtml = `<a href="${linkUrl}">${linkText}</a>`;
+          }
+
+          html.push(`<a href="${linkUrl}">${linkText}</a>`);
+          continue;
+        }
         
         // For regular content, add to buffer
         contentBuffer.push(line);
