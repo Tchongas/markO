@@ -2,6 +2,11 @@ const assert = require('assert');
 const marko = require('./marko.js');
 
 function runTests() {
+
+  // Verify marko.parse exists
+  if (typeof marko.parse !== 'function') {
+    throw new Error('marko.parse is not a function');
+  }
   // Test 1: Basic title parsing
   const basicTest = marko.parse('# Hello World', {
     titleClass: 'test-title',
@@ -47,6 +52,7 @@ function runTests() {
 // Run tests
 try {
   runTests();
+  console.log('All tests passed successfully! 🎉');
 } catch (error) {
   console.error('Test failed:', error.message);
   process.exit(1);

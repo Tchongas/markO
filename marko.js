@@ -138,3 +138,13 @@
   // MARKO GLOBAL
   global.marko = marko;
 })(typeof window !== 'undefined' ? window : this);
+
+// For Node.js
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = marko;
+}
+
+// For browser
+if (typeof window !== 'undefined') {
+  window.marko = marko;
+}
