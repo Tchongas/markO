@@ -1,5 +1,5 @@
 {
-    "name": "@tchongas/marko",
+    "name": "markdowno",
     "version": "1.0.5",
     "description": "Markdown to HTML parser",
     "main": "marko.js",
