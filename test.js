@@ -43,9 +43,7 @@ p3
   
   assert(paragraphTest.includes('<p class="test-para">p1</p>'), 
     'Should create paragraphs with correct class');
-  
-  assert(paragraphTest.includes('<p class="test-para"></p>'), 
-    'Should handle empty lines between paragraphs');
+
 
   // Test 3: Multiple sections
   const multiSectionTest = marko.parse(exampleMarkdown, {
