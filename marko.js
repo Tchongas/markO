@@ -1,9 +1,12 @@
-/**
- * MarkO - A simple MD to HTML parser
- * @version 1.0.0
- */
 (function(global) {
   'use strict';
+
+  // Default configuration
+  const defaultConfig = {
+    titleClass: '',
+    divClass: '',
+    paragraphClass: ''
+  };
 
   const marko = {
     /**
@@ -15,7 +18,10 @@
      * @param {string} config.paragraphClass - The class to use for paragraphs
      * @return {string} The HTML representation
      */
-    parse: function(markdownText, config) {
+    parse: function(markdownText, config = {}) {
+      // Merge provided config with default config
+      const finalConfig = { ...defaultConfig, ...config };
+
       if (!markdownText) return '';
       
       // Split by lines and normalize line endings
@@ -36,7 +42,7 @@
           if (inSection) {
             // Process remaining content in the buffer
             if (contentBuffer.length > 0) {
-              html.push(this._processContentBuffer(contentBuffer, config));
+              html.push(this._processContentBuffer(contentBuffer, finalConfig));
               contentBuffer = [];
             }
             
@@ -52,11 +58,11 @@
         if (titleMatch) {
           // Process any content in buffer before the title
           if (!inSection && contentBuffer.length > 0) {
-            html.push(this._processContentBuffer(contentBuffer, config));
+            html.push(this._processContentBuffer(contentBuffer, finalConfig));
             contentBuffer = [];
           } else if (inSection) {
             // Process content in current section before closing it
-            html.push(this._processContentBuffer(contentBuffer, config));
+            html.push(this._processContentBuffer(contentBuffer, finalConfig));
             contentBuffer = [];
             html.push('</div>');
           }
@@ -74,11 +80,11 @@
           const titleTag = `h${titleLevel}`;
           const titleContent = titleMatch[2].trim();
           
-          html.push(`<${titleTag}${titleId ? ' id="' + titleId + '"' : ''} class="${config.titleClass}">${titleContent}</${titleTag}>`);
+          html.push(`<${titleTag}${titleId ? ' id="' + titleId + '"' : ''} class="${finalConfig.titleClass}">${titleContent}</${titleTag}>`);
           
           // Open a new section for the content
           if (titleLevel === 1) {
-            html.push(`<div id="${currentSectionId}-section" class="${config.divClass}">`);
+            html.push(`<div id="${currentSectionId}-section" class="${finalConfig.divClass}">`);
             inSection = true;
           } else if (inSection) {
             // For h2, we're already in a section
@@ -93,7 +99,7 @@
       
       // Process any remaining content
       if (contentBuffer.length > 0) {
-        html.push(this._processContentBuffer(contentBuffer, config));
+        html.push(this._processContentBuffer(contentBuffer, finalConfig));
       }
       
       // Close any open section
@@ -108,7 +114,7 @@
      * Process a buffer of content lines
      * @private
      * @param {string[]} buffer - Array of markdown lines
-     * @return {string} pprocessed HTML
+     * @return {string} processed HTML
      */
     _processContentBuffer: function(buffer, config) {
       const content = buffer.join('\n').trim();
@@ -132,19 +138,30 @@
                   .join('\n');
           })
           .join('\n\n');
-  }
+    },
+
+    /**
+     * Set global default configuration
+     * @param {object} newConfig - New default configuration
+     */
+    setDefaultConfig: function(newConfig) {
+      Object.assign(defaultConfig, newConfig);
+    }
   };
 
-  // MARKO GLOBAL
+  // CommonJS export
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = marko;
+  }
+
+  // ES Module export
+  if (typeof exports !== 'undefined') {
+    exports.default = marko;
+  }
+
+  // Global export
   global.marko = marko;
-})(typeof window !== 'undefined' ? window : this);
 
-// For Node.js
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = marko;
-}
-
-// For browser
-if (typeof window !== 'undefined') {
-  window.marko = marko;
-}
+  // Return the marko object for module systems
+  return marko;
+})(typeof window !== 'undefined' ? window : global);
