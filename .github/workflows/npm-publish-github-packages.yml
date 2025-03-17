@@ -35,6 +35,10 @@ jobs:
       - run: npm ci
       - name: Build (if applicable)
         run: npm run build # Add your build command here if needed
+      - name: Set npm registry to npmjs
+        run: echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > .npmrc
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish to npm
         run: npm publish --access public
         env:
