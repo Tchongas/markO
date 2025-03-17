@@ -1,6 +1,6 @@
 {
-    "name": "markdowno",
-    "version": "1.0.5",
+    "name": "@tchongass/marko",
+    "version": "1.0.6",
     "description": "Markdown to HTML parser",
     "main": "marko.js",
     "scripts": {
@@ -19,7 +19,7 @@
     "author": "Tchongass",
     "license": "MIT",
     "publishConfig": {
-        "registry": "https://npm.pkg.github.com/",
+        "registry": "https://registry.npmjs.org/",
         "access": "public"
     },
     "bugs": {

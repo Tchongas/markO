@@ -6,7 +6,12 @@ Marko is a JavaScript library that converts Markdown text into HTML built to sui
 
 ## Basic Usage
 
+Install the package:
+CDN:
+```html
+<script src="https://cdn.jsdelivr.net/npm/@tchongass/marko@1.0.6/marko.min.js"></script>
 ```javascript
+
 // Basic parsing
 const markdown = `
 # My First Title
