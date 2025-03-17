@@ -7,8 +7,18 @@ function runTests() {
   if (typeof marko.parse !== 'function') {
     throw new Error('marko.parse is not a function');
   }
+
+  const exampleMarkdown = `
+# My First Title
+This is some content
+//end
+
+## Subtitle
+More content here
+//end
+`;
   // Test 1: Basic title parsing
-  const basicTest = marko.parse('# Hello World', {
+  const basicTest = marko.parse(exampleMarkdown, {
     titleClass: 'test-title',
     divClass: 'test-div',
     paragraphClass: 'test-para'
