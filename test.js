@@ -10,11 +10,15 @@ function runTests() {
 
   const exampleMarkdown = `
 # My First Title
-This is some content
+p1
 //end
 
+# My Second Title
+
 ## Subtitle
-More content here
+p2
+
+p3
 //end
 `;
   // Test 1: Basic title parsing
@@ -24,36 +28,36 @@ More content here
     paragraphClass: 'test-para'
   });
   
-  assert(basicTest.includes('<h1 id="1-title" class="test-title">Hello World</h1>'), 
+  assert(basicTest.includes('<h1 id="1-title" class="test-title">My First Title</h1>'), 
     'Should create an H1 tag with correct id and class');
   
   assert(basicTest.includes('<div id="1-section" class="test-div">'), 
     'Should create a section div');
 
   // Test 2: Paragraph parsing
-  const paragraphTest = marko.parse('First line\n\nSecond paragraph', {
+  const paragraphTest = marko.parse(exampleMarkdown, {
     titleClass: 'test-title',
     divClass: 'test-div',
     paragraphClass: 'test-para'
   });
   
-  assert(paragraphTest.includes('<p class="test-para">First line</p>'), 
+  assert(paragraphTest.includes('<p class="test-para">p1</p>'), 
     'Should create paragraphs with correct class');
   
   assert(paragraphTest.includes('<p class="test-para"></p>'), 
     'Should handle empty lines between paragraphs');
 
   // Test 3: Multiple sections
-  const multiSectionTest = marko.parse('# First Title\nContent 1\n//end\n# Second Title\nContent 2\n//end', {
+  const multiSectionTest = marko.parse(exampleMarkdown, {
     titleClass: 'test-title',
     divClass: 'test-div',
     paragraphClass: 'test-para'
   });
   
-  assert(multiSectionTest.includes('<h1 id="1-title" class="test-title">First Title</h1>'), 
+  assert(multiSectionTest.includes('<h1 id="1-title" class="test-title">My First Title</h1>'), 
     'Should parse first section title');
   
-  assert(multiSectionTest.includes('<h1 id="2-title" class="test-title">Second Title</h1>'), 
+  assert(multiSectionTest.includes('<h1 id="2-title" class="test-title">My Second Title</h1>'), 
     'Should parse second section title');
 
   console.log('All tests passed successfully! 🎉');
