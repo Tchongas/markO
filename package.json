@@ -1,6 +1,6 @@
 {
     "name": "@tchongass/marko",
-    "version": "1.0.10",
+    "version": "1.0.11",
     "description": "Markdown to HTML parser",
     "main": "marko.js",
     "scripts": {

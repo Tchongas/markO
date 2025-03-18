@@ -99,18 +99,19 @@
         const linkMatch = line.match(/^\[(.+)\]\((.+)\)$/);
         if (linkMatch) {
           const linkText = linkMatch[1];
-          const linkUrl = linkMatch[2];
+          let linkUrl = linkMatch[2];
 
           const titleMatch = linkUrl.match(/(.+?)\s*"(.+?)"/);
           let linkHtml;
 
           if (titleMatch) {
-            linkHtml = `<a href="${titleMatch[1]}" title="${titleMatch[2]}" class="${finalConfig.anchorClass}">${linkText}</a>`;
+              linkHtml = `<a href="${titleMatch[1]}" title="${titleMatch[2]}" class="${finalConfig.anchorClass}">${linkText}</a>`;
+              linkUrl = titleMatch[1];
           } else {
-            linkHtml = `<a href="${linkUrl}" class="${finalConfig.anchorClass}">${linkText}</a>`;
+              linkHtml = `<a href="${linkUrl}" class="${finalConfig.anchorClass}">${linkText}</a>`;
           }
-
-          html.push(`<a href="${linkUrl}" class="${finalConfig.anchorClass}">${linkText}</a>`);
+          
+          html.push(linkHtml);
           continue;
         }
         
