@@ -111,7 +111,7 @@
               linkHtml = `<a href="${linkUrl}" class="${finalConfig.anchorClass}">${linkText}</a>`;
           }
           
-          html.push(linkHtml);
+          contentBuffer.push(linkHtml);
           continue;
         }
         
