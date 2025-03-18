@@ -98,21 +98,43 @@
         //I hate regex wtf
         const linkMatch = line.match(/^\[(.+)\]\((.+)\)$/);
         if (linkMatch) {
-          const linkText = linkMatch[1];
-          let linkUrl = linkMatch[2];
+            const linkText = linkMatch[1];
+            let linkUrl = linkMatch[2];
+        
+            const titleMatch = linkUrl.match(/(.+?)\s*"(.+?)"/);
+            let linkHtml;
+        
+            if (titleMatch) {
+                linkHtml = `<a href="${titleMatch[1]}" title="${titleMatch[2]}" class="${finalConfig.anchorClass}">${linkText}</a>`;
+                linkUrl = titleMatch[1];
+            } else {
+                linkHtml = `<a href="${linkUrl}" class="${finalConfig.anchorClass}">${linkText}</a>`;
+            }
+            
+            // Instead of pushing to html, add to content buffer
+            contentBuffer.push(linkHtml);
+            continue;
+        }
+        // if the line is not in the beggining of a paragraph, we use this
+        const linkMatchInline = line.match(/\[(.+?)\]\((.+?)\)/);
+        if (linkMatchInline) {
+            const linkText = linkMatchInline[1];
+            const linkUrl = linkMatchInline[2];
 
-          const titleMatch = linkUrl.match(/(.+?)\s*"(.+?)"/);
-          let linkHtml;
-
-          if (titleMatch) {
-              linkHtml = `<a href="${titleMatch[1]}" title="${titleMatch[2]}" class="${finalConfig.anchorClass}">${linkText}</a>`;
-              linkUrl = titleMatch[1];
-          } else {
-              linkHtml = `<a href="${linkUrl}" class="${finalConfig.anchorClass}">${linkText}</a>`;
-          }
+            const titleMatch = linkUrl.match(/(.+?)\s*"(.+?)"/);
+            let linkHtml;
           
-          contentBuffer.push(linkHtml);
-          continue;
+            if (titleMatch){
+              linkHtml = `<a href="${titleMatch[1]}" title="${titleMatch[2]}" class="${finalConfig.anchorClass}">${linkText}</a>`;
+            } else {
+              linkHtml = `<a href="${linkUrl}" class="${finalConfig.anchorClass}">${linkText}</a>`;
+            }
+            
+        
+            let lineWithHtml = line.replace(linkMatchInline[0], linkHtml);
+            let paragraphHtml = `<p class="${finalConfig.paragraphClass}">${lineWithHtml}</p>`;
+            contentBuffer.push(paragraphHtml);
+            continue;
         }
         
         // For regular content, add to buffer

@@ -21,6 +21,7 @@ p2
 p3
 //end
 [Google](https://www.google.com "Google")
+inline link [Google2](https://www.google.com "Google")
 `;
   // Test 1: Basic title parsing
   const basicTest = marko.parse(exampleMarkdown, {
@@ -46,7 +47,7 @@ p3
   assert(paragraphTest.includes('<p class="test-para">p1</p>'), 
     'Should create paragraphs with correct class');
 
-
+  // Test 3: link parsing
   const linkTest = marko.parse(exampleMarkdown, {
     titleClass: 'test-title',
     divClass: 'test-div',
@@ -56,8 +57,19 @@ p3
   
   assert(linkTest.includes('<a href="https://www.google.com" title="Google" class="test-anchor">Google</a>'),
     'Should create links with correct text');
+  
+  const linkInlineTest = marko.parse(exampleMarkdown, {
+    titleClass: 'test-title',
+    divClass: 'test-div',
+    paragraphClass: 'test-para',
+    anchorClass: 'test-anchor'
+  });
 
-  // Test 3: Multiple sections
+  assert(linkInlineTest.includes('<p class="test-para">inline link <a href="https://www.google.com" title="Google" class="test-anchor">Google2</a></p>'),
+    'Should create links with correct text');
+
+
+  // Test 4: Multiple sections
   const multiSectionTest = marko.parse(exampleMarkdown, {
     titleClass: 'test-title',
     divClass: 'test-div',
