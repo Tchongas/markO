@@ -26,7 +26,8 @@ p3
   const basicTest = marko.parse(exampleMarkdown, {
     titleClass: 'test-title',
     divClass: 'test-div',
-    paragraphClass: 'test-para'
+    paragraphClass: 'test-para',
+    anchorClass: 'test-anchor'
   });
   
   assert(basicTest.includes('<h1 id="1-title" class="test-title">My First Title</h1>'), 
@@ -49,10 +50,11 @@ p3
   const linkTest = marko.parse(exampleMarkdown, {
     titleClass: 'test-title',
     divClass: 'test-div',
-    paragraphClass: 'test-para'
+    paragraphClass: 'test-para',
+    anchorClass: 'test-anchor'
   });
   
-  assert(linkTest.includes('<a href="https://www.google.com" title="Google">Google</a>'),
+  assert(linkTest.includes('<a href="https://www.google.com" title="Google" class="test-anchor">Google</a>'),
     'Should create links with correct text');
 
   // Test 3: Multiple sections
