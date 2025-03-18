@@ -105,12 +105,12 @@
           let linkHtml;
 
           if (titleMatch) {
-            linkHtml = `<a href="${titleMatch[1]}" title="${titleMatch[2]} class="${finalConfig.anchorClass}">${linkText}</a>`;
+            linkHtml = `<a href="${titleMatch[1]}" title="${titleMatch[2]}" class="${finalConfig.anchorClass}">${linkText}</a>`;
           } else {
-            linkHtml = `<a href="${linkUrl} class="${finalConfig.anchorClass}">${linkText}</a>`;
+            linkHtml = `<a href="${linkUrl}" class="${finalConfig.anchorClass}">${linkText}</a>`;
           }
 
-          html.push(`<a href="${linkUrl} class="${finalConfig.anchorClass}">${linkText}</a>`);
+          html.push(`<a href="${linkUrl}" class="${finalConfig.anchorClass}">${linkText}</a>`);
           continue;
         }
         
