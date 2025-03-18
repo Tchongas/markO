@@ -5,7 +5,8 @@
   const defaultConfig = {
     titleClass: '',
     divClass: '',
-    paragraphClass: ''
+    paragraphClass: '',
+    anchorClass: ''
   };
 
   const marko = {
@@ -16,6 +17,7 @@
      * @param {string} config.titleClass - The class to use for titles
      * @param {string} config.divClass - The class to use for sections
      * @param {string} config.paragraphClass - The class to use for paragraphs
+     * @param {string} config.anchorClass - The class to use for Anchor titles
      * @return {string} The HTML representation
      */
     parse: function(markdownText, config = {}) {
@@ -103,12 +105,12 @@
           let linkHtml;
 
           if (titleMatch) {
-            linkHtml = `<a href="${titleMatch[1]}" title="${titleMatch[2]}">${linkText}</a>`;
+            linkHtml = `<a href="${titleMatch[1]}" title="${titleMatch[2]} class="${finalConfig.anchorClass}">${linkText}</a>`;
           } else {
-            linkHtml = `<a href="${linkUrl}">${linkText}</a>`;
+            linkHtml = `<a href="${linkUrl} class="${finalConfig.anchorClass}">${linkText}</a>`;
           }
 
-          html.push(`<a href="${linkUrl}">${linkText}</a>`);
+          html.push(`<a href="${linkUrl} class="${finalConfig.anchorClass}">${linkText}</a>`);
           continue;
         }
         
